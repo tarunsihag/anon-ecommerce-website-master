@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'master' }  // Using master node instead of linux
+    agent any  // This will use the default node, typically the Jenkins controller
     stages {
         stage('Build Docker Image') {
             steps {
