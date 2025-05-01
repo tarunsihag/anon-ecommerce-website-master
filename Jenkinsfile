@@ -3,10 +3,10 @@ pipeline {
 
     stages {
         stage('Clone Repo') {
-            steps {
-                git 'https://github.com/tarunsihag/anon-ecommerce-website-master.git'
-            }
-        }
+    steps {
+        git branch: 'main', url: 'https://github.com/tarunsihag/anon-ecommerce-website-master.git'
+    }
+}
 
         stage('Build Docker Image') {
             steps {
