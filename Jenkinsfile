@@ -3,33 +3,23 @@ pipeline {
 
     stages {
         stage('Clone Repo') {
-    steps {
-        git branch: 'main', url: 'https://github.com/tarunsihag/anon-ecommerce-website-master.git'
-    }
-}
+            steps {
+                git 'https://github.com/tarunsihag/anon-ecommerce-website-master'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t my-ecommerce-app .'
+                    docker.build('my-ecommerce-app')
                 }
             }
         }
 
-        stage('Stop Old Container') {
+        stage('Run Docker Container') {
             steps {
-                script {
-                    sh 'docker stop ecommerce || true'
-                    sh 'docker rm ecommerce || true'
-                }
-            }
-        }
-
-        stage('Run New Container') {
-            steps {
-                script {
-                    sh 'docker run -d -p 8888:80 --name ecommerce my-ecommerce-app'
-                }
+                sh 'docker rm -f ecommerce || true'
+                sh 'docker run -d -p 3000:3000 --name ecommerce my-ecommerce-app'
             }
         }
     }
