@@ -1,12 +1,10 @@
 pipeline {
     agent any
-    environment {
-        MY_ENV_VAR = 'some_value'
-    }
+
     stages {
-        stage('Build') {
+        stage('Hello') {
             steps {
-                echo "Building the project"
+                echo 'Hello, World!'
             }
         }
     }
