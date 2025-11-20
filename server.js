@@ -1,15 +1,21 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Serve static files (like index.html, CSS, etc.)
-app.use(express.static('public')); // Or '.' if your files are in root
+// Serve static files (index.html, CSS, JS, images, etc.)
+app.use(express.static(__dirname));
 
-// Default route
+// Serve assets folder
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+// Default route - serve index.html
 app.get('/', (req, res) => {
-  res.send('E-commerce app is running!');
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Frontend server running on http://localhost:${PORT}`);
+  console.log(`Serving index.html from: ${__dirname}`);
+  console.log(`Backend API available at: http://localhost:5000`);
 });
